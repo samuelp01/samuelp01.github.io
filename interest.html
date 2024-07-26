@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interest Calculator</title>
+    <link rel="stylesheet" href="style.css">
+   <style>
+    body, button, form label, form input, #result {
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Set text color to black for input elements */
+    input[type="number"] {
+        color: black;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+    }
+
+    header img {
+        max-width: 500px; /* Adjust the maximum width */
+        max-height: 250px; /* Adjust the maximum height */
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #006400;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    form {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    form label, form input {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    #result {
+        text-align: center;
+    }
+
+    .footer {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo" style="max-width: 500px; max-height: 250px;">
+        <h2>Interest Calculator</h2>
+        <img src="tta.png" alt="Logo" style="max-width: 500px; max-height: 250px;">
+    </header>
+    </header>
+    <form id="interestForm">
+        <label for="principal">Principal Amount:</label>
+        <input type="number" id="principal" required><br>
+        <label for="rate">Annual Interest Rate (%):</label>
+        <input type="number" id="rate" step="0.01" required><br>
+        <label for="time">Time (Years):</label>
+        <input type="number" id="time" required><br>
+        <label for="compound">Compound Frequency:</label>
+        <select id="compound">
+            <option value="annual">Annually</option>
+            <option value="semiannual">Semi-Annually</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="monthly">Monthly</option>
+        </select><br>
+        <button type="button" onclick="calculateInterest()">Calculate</button>
+    </form>
+    <div id="result"></div>
+    <div class="footer">
+        <button onclick="goBack()">Home</button>
+    </div>
+    <script>
+        function calculateInterest() {
+            var principal = document.getElementById("principal").value;
+            var rate = document.getElementById("rate").value / 100;
+            var time = document.getElementById("time").value;
+            var compound = document.getElementById("compound").value;
+            var n;
+
+            switch(compound) {
+                case "annual":
+                    n = 1;
+                    break;
+                case "semiannual":
+                    n = 2;
+                    break;
+                case "quarterly":
+                    n = 4;
+                    break;
+                case "monthly":
+                    n = 12;
+                    break;
+                default:
+                    n = 1;
+            }
+
+            var amount = principal * Math.pow((1 + rate / n), n * time);
+            var interest = amount - principal;
+            document.getElementById("result").innerHTML = "Total Interest: $" + interest.toFixed(2) + "<br>Total Amount: $" + amount.toFixed(2);
+        }
+
+        function goBack() 
+        {
+            window.location.href = "_main.html"; 
+        }
+    </script>
+</body>
+</html>
